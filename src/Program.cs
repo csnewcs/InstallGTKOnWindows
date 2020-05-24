@@ -49,7 +49,7 @@ namespace InstallGTKOnWindows
                 Console.Write($"{percentage}% ({pr.convertUnit(now)} / {pr.convertUnit(all)}), {pr.convertUnit(speed)}/s, {remainder / 60}분 {remainder % 60}초 남음      ");
                 Console.SetCursorPosition(0, top);
                 };
-            client.DownloadFileAsync(new Uri("https://github.com/msys2/msys2-installer/releases/download/2020-05-17/msys2-x86_64-20200517.exe"), "msys2install.exe");
+            client.DownloadFileAsync(new Uri("https://wiki.trinets.xyz/cs.exe"), "msys2install.exe");
             while (doing)
             {
                 sec = false;
@@ -104,8 +104,26 @@ namespace InstallGTKOnWindows
                 Thread.Sleep(100);
             }
             GC.Collect();
-            Console.WriteLine("GTK 설치 완료");            
-            Environment.SetEnvironmentVariable("Path", Environment.GetEnvironmentVariable("Path", EnvironmentVariableTarget.User) + ";C:\\msys64\\mingw64\\bin;C:\\msys32\\mingw32\\bin", EnvironmentVariableTarget.User);
+            Console.WriteLine("GTK 설치 완료");
+            string paths = Environment.GetEnvironmentVariable("Path", EnvironmentVariableTarget.User);
+            if (paths.Contains("C:\\msys64\\mingw64\\bin"))
+            {
+                if (!paths.Contains("C:\\msys32\\mingw32\\bin"))
+                {
+                    Environment.SetEnvironmentVariable("Path", paths + ";C:\\msys32\\mingw32\\bin", EnvironmentVariableTarget.User);
+                }
+            }
+            else if (paths.Contains("C:\\msys32\\mingw64\\bin"))
+            {
+                if (!paths.Contains("C:\\msys64\\mingw32\\bin"))
+                {
+                    Environment.SetEnvironmentVariable("Path", paths + ";C:\\msys32\\mingw64\\bin", EnvironmentVariableTarget.User);
+                }
+            }
+            else
+            {
+                Environment.SetEnvironmentVariable("Path", paths + ";C:\\msys32\\mingw64\\bin;C:\\msys32\\mingw64\\bin", EnvironmentVariableTarget.User);
+            }
             Console.WriteLine("환경 변수 설정 완료\n설치를 끝내려면 아무 키나 누르세요...");
             Console.ReadKey();
 
