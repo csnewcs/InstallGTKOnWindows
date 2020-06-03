@@ -106,6 +106,7 @@ namespace InstallGTKOnWindows
             GC.Collect();
             Console.WriteLine("GTK 설치 완료");
             string paths = Environment.GetEnvironmentVariable("Path", EnvironmentVariableTarget.User);
+
             if (paths.Contains("C:\\msys64\\mingw64\\bin"))
             {
                 if (!paths.Contains("C:\\msys32\\mingw32\\bin"))
@@ -113,16 +114,16 @@ namespace InstallGTKOnWindows
                     Environment.SetEnvironmentVariable("Path", paths + ";C:\\msys32\\mingw32\\bin", EnvironmentVariableTarget.User);
                 }
             }
-            else if (paths.Contains("C:\\msys32\\mingw64\\bin"))
+            else if (paths.Contains("C:\\msys32\\mingw32\\bin"))
             {
                 if (!paths.Contains("C:\\msys64\\mingw32\\bin"))
                 {
-                    Environment.SetEnvironmentVariable("Path", paths + ";C:\\msys32\\mingw64\\bin", EnvironmentVariableTarget.User);
+                    Environment.SetEnvironmentVariable("Path", paths + ";C:\\msys64\\mingw64\\bin", EnvironmentVariableTarget.User);
                 }
             }
             else
             {
-                Environment.SetEnvironmentVariable("Path", paths + ";C:\\msys32\\mingw64\\bin;C:\\msys32\\mingw64\\bin", EnvironmentVariableTarget.User);
+                Environment.SetEnvironmentVariable("Path", paths + ";C:\\msys64\\mingw64\\bin;C:\\msys32\\mingw32\\bin", EnvironmentVariableTarget.User);
             }
             Console.WriteLine("환경 변수 설정 완료\n설치를 끝내려면 아무 키나 누르세요...");
             Console.ReadKey();
