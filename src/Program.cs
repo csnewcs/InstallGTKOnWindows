@@ -8,7 +8,7 @@ namespace InstallGTKOnWindows
 {
     class Program
     {
-        // msys2링크: https://github.com/msys2/msys2-installer/releases/download/2020-05-17/msys2-x86_64-20200517.exe
+        // msys2링크: https://repo.msys2.org/distrib/x86_64/msys2-x86_64-20200720.exe
         // 
         static void Main(string[] args)
         {
@@ -49,7 +49,7 @@ namespace InstallGTKOnWindows
                 Console.Write($"{percentage}% ({pr.convertUnit(now)} / {pr.convertUnit(all)}), {pr.convertUnit(speed)}/s, {remainder / 60}분 {remainder % 60}초 남음      ");
                 Console.SetCursorPosition(0, top);
                 };
-            client.DownloadFileAsync(new Uri("https://github.com/msys2/msys2-installer/releases/download/2020-05-17/msys2-x86_64-20200517.exe"), "msys2install.exe");
+            client.DownloadFileAsync(new Uri("https://repo.msys2.org/distrib/x86_64/msys2-x86_64-20200720.exe"), "msys2install.exe");
             while (doing)
             {
                 sec = false;
